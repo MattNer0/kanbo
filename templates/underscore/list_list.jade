@@ -1,0 +1,120 @@
+script(type="text/template", class="list_list").
+	<% _.each( rc.listslist, function( list ){ %>
+		<div class="list js-list <% if ( list.listSize == 'wide' ){ %>wide-list<% } %>" listid="<%- list._id %>">
+			<div class="list-header js-list-header">
+				<h2 class="list-header-name"><%- list.title %></h2>
+				<a class="list-header-menu-icon fa fa-navicon js-open-list-menu" href="#"></a>
+			</div>
+			<div class="list-body js-perfect-scrollbar">
+				<div class="minicards clearfix js-minicards">
+				</div>
+			</div>
+			<div class="list-footer js-list-footer">
+				<div class="minicard-wrapper outer-minicard-composer">
+					<a class="open-minicard-composer js-card-composer js-open-inlined-form" href="#">
+						<i class="fa fa-plus"></i> Add a card
+					</a>
+				</div>
+
+				<form class="minicard-composer-form" method="POST" action="/card/new" style="display:none;">
+					<div class="minicard minicard-composer">
+						<textarea class="minicard-composer-textarea" autocomplete="off" data-autosize-on="true" name="title"></textarea>
+					</div>
+					
+					<input type="hidden" value="<%- list.board %>" name="board" />
+					<input type="hidden" value="<%- list._id %>" name="boardlist" />
+					
+					<div class="edit-controls">
+						<button type="submit" class="primary">Save</button>
+						<a class="js-close-inlined-form">
+							<i class="fa fa-times"></i> Cancel
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	<% }); %>
+
+script(type="text/template", class="list_card").
+	<% _.each( rc.cardslist, function( card ){ %>
+		<% if ( !card.archived ){ %>
+			<div class="minicard-wrapper js-minicard" href="#" cardid="<%- card._id %>">
+				<div class="minicard">
+					<div class="minicard-handle"></div>
+					<% if ( card.cover && card.cover.filename ){ %>
+						<div class="minicard-cover">
+							<img src="/files/attachments/<%- card.cover.filename %>">
+						</div>
+					<% } %>
+					<div class="minicard-labels">
+						<% _.each( card.labels, function( label ){ %>
+							<div class="minicard-label card-label-<%- label.color %>" labelid="<%- label._id %>"></div>
+						<% }); %>
+					</div>
+					<div class="minicard-title"><%- card.title %></div>
+					<div class="badges">
+						
+						<div class="badge js-badge-content" style="<% if ( card.content ){ %>display: block;<% } %>">
+							<span class="badge-icon fa fa-align-left"></span>
+						</div>
+						
+						<div class="badge js-badge-comments" style="<% if ( card.comments && card.comments.length ){ %>display: block;<% } %>">
+							<span class="badge-icon fa fa-comment-o"></span>
+							<span class="badge-text"><%- card.comments.length %></span>
+						</div>
+						
+						<div class="badge js-badge-attachments" style="<% if ( card.attachments && card.attachments.length ){ %>display: block;<% } %>">
+							<span class="badge-icon fa fa-paperclip"></span>
+							<span class="badge-text"><%- card.attachments.length %></span>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		<% } %>
+	<% }); %>
+
+script(type="text/template", class="card_comments").
+	<% _.each( rc.commentslist, function( comment ){ %>
+		<div class="activity">
+			<a class="member js-member" title="<%- comment.creator.username %>" href="#">
+				<img class="avatar avatar-image" src="/files/avatar/<%- comment.creator.avatar.filename %>" />
+			</a>
+			<div class="activity-desc">
+				<%- comment.creator.username %>
+				<div class="activity-comment">
+					<div class="viewer">
+						<%- comment.content %>
+					</div>
+				</div>
+				<span class="activity-meta"><%- moment(comment.createdAt).format("Do MMMM YYYY, hh:mm:ss") %></span>
+			</div>
+		</div>
+	<% }); %>
+
+script(type="text/template", class="card_attachments").
+	<% _.each( rc.attachmentsList, function( attachment ){ %>
+		<div class="attachment-item js-open-viewer" attachmentid="<%- attachment._id %>" attachment-cover="<% if ( attachment.is_cover ){ %>1<% } %>">
+			
+			<div class="attachment-thumbnail">
+				<% if ( attachment.attached_file.filetype.indexOf('image') >= 0 ){ %>
+					<img class="attachment-thumbnail-img js-preview-image" src="/files/attachments/<%- attachment.attached_file.filename %>">
+				<% } else { %>
+					<i class="fa fa-paperclip"></i>
+				<% } %>
+			</div>
+
+			<p class="attachment-details"><%- attachment.name %>
+				<span class="attachment-details-date">Added <%- moment(attachment.createdAt).format("Do MMMM YYYY, hh:mm:ss") %></span>
+				<span class="attachment-details-actions">
+					<a class="js-download" target="_blank" href="/files/attachments/<%- attachment.attached_file.filename %>"><i class="fa fa-download"></i>Download</a>
+					<% if ( attachment.attached_file.filetype.indexOf('image') >= 0 ){ %>
+						<a class="js-remove-cover" href="#" style="<% if ( !attachment.is_cover ){ %>display:none;<% } %>"><i class="fa fa-thumb-tack"></i>Remove Cover</a>
+						<a class="js-add-cover" href="#" style="<% if ( attachment.is_cover ){ %>display:none;<% } %>"><i class="fa fa-thumb-tack"></i>Add Cover</a>
+					<% } %>
+					<a class="js-confirm-delete" href="#"><i class="fa fa-close"></i>Delete</a>
+				</span>
+			</p>
+
+		</div>
+	<% }); %>

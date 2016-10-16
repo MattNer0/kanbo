@@ -1,0 +1,40 @@
+.auth-layout .at-form {
+	margin: auto;
+	width: 275px;
+	padding: 25px;
+	margin-top: 20px;
+	padding-bottom: 10px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #dbdbdb;
+	border-bottom-color: #c2c2c2;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+
+	.at-title {
+		background: #f7f7f7;
+		margin: -25px;
+		padding: 15px 25px 5px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #dcdcdc;
+		color: #4d4d4d;
+		font-weight: bold;
+	}
+
+	.at-signup-link, .at-signin-link, .at-forgotPwd {
+		font-size: 0.9em;
+		margin-top: 15px;
+		color: #4d4d4d;
+	}
+
+	label{
+		margin-top: 1em;
+	}
+
+	button{
+		margin: 1em 0 0.6em;
+	}
+
+	input{
+		width: 100%;
+	}
+}

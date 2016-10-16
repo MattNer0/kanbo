@@ -1,0 +1,79 @@
+mixin card_settings(card)
+	.card_settings
+		.pop-over.js-pop-over(cardid=card.id)
+			div.js-pop-over-card-settings
+				.header
+					span.header-title Card Settings
+				
+				.content-wrapper
+					.content-container
+						.content
+							ul.pop-over-list
+								li: a.js-rename-card(href="#") Rename Card
+								li: a.js-attachment-card(href="#") Add Attachment
+								li: a.js-edit-type-card(href="#") Change Card Type
+							hr
+							ul.pop-over-list
+								li: a.js-archive-card(href="/card/archive/"+card.id) Archive Card
+
+			div.js-pop-over-card-rename
+				.header
+					a.back-btn.js-back-view(href="#")
+						i.fa.fa-chevron-left
+					
+					span.header-title Rename Card
+				
+				.content-wrapper
+					.content-container
+						.content
+							form.pure-form.pure-form-stacked(method="POST", action="/card/rename")
+								input(type="hidden", name="board", value=card.board)
+								input(type="hidden", name="card", value=card.id)
+								textarea.card-name-input.full-line(name="title")= card.title
+								
+								.edit-controls
+									button.pure-button.pure-button-primary(type="submit") Save
+
+			div.js-pop-over-card-attachment
+				.header
+					a.back-btn.js-back-view(href="#")
+						i.fa.fa-chevron-left
+					
+					span.header-title Add Attachment
+				
+				.content-wrapper
+					.content-container
+						.content
+							form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/attachment/new")
+								input(type="hidden", name="board", value=card.board)
+								input(type="hidden", name="card", value=card.id)
+								input(type="file", name="attachment")
+								
+								.edit-controls
+									button.primary(type="submit") Save
+
+mixin card_labels_settings(card)
+	.card_labels_settings
+		.pop-over.js-pop-over(cardid=card.id)
+			div.js-pop-over-card-labels
+				.header
+					span.header-title Labels
+				
+				.content-wrapper
+					.content-container
+						.content
+							ul.edit-labels-pop-over
+								each label in board.labels
+									li
+										a.card-label-edit-button.fa.fa-pencil.js-edit-label(href="#")
+										- var classLabel = "card-label card-label-selectable js-select-label card-label-"+label.color
+
+										if card.labels_ids.indexOf( label.id ) >= 0
+											- classLabel += " active"
+										
+										span(class=classLabel, labelid=label.id)
+											= label.title
+											if card.labels_ids.indexOf( label.id ) >= 0
+												i.card-label-selectable-icon.fa.fa-check
+
+							a.quiet-button.full.js-add-label(href="#") Create a new label

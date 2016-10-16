@@ -1,0 +1,22 @@
+script(type="text/template", class="board_list").
+	<ul class="board-list">
+		<% _.each( rc.boardslist, function( board ){ %>
+			<li class="board-color-<%- board.color %> <% if ( rc.faved && rc.faved.indexOf( board._id ) >= 0 ){ %>starred<% } %>">
+				<a class="js-open-board board-list-item" href="/board/<%- board._id %>" boardid="<%- board._id %>" title="<%- board.title %>">
+					<span class="details">
+						<span class="board-list-item-name"><%- board.title %></span>
+						<% if ( rc.faved && rc.faved.indexOf( board._id ) >= 0 ){ %>
+							<i class="fa js-star-board fa-star"></i>
+						<% } else { %>
+							<i class="fa js-star-board fa-star-o"></i>
+						<% } %>
+						<p class="board-list-item-desc"><%- board.description %></p>
+					</span>
+				</a>
+			</li>
+		<% }); %>
+
+		<li class="js-add-board">
+			<a class="board-list-item label" href="#">Add a new board</a>
+		</li>
+	</ul>

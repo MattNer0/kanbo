@@ -1,0 +1,38 @@
+mixin new_list(board, lists)
+	a.open-list-composer.js-open-inlined-form(href="#")
+		i.fa.fa-plus
+		|  Add a list
+
+	form.inlined-form.js-inlined-form(style="display:none;", method="POST", action="/list/new")
+		input.list-name-input.full-line(type="text", placeholder="Add a list", autocomplete="off", autofocus="", name="title")
+		
+		input(type="hidden", value=board.id, name="board")
+		
+		if lists
+			input(type="hidden", value=(lists.length+1), name="order")
+		
+		.edit-controls
+			button.primary(type="submit") Save
+			a.js-close-inlined-form
+				i.fa.fa-times
+				|  Cancel
+
+	script(type="text/javascript").
+		$(".open-list-composer.js-open-inlined-form").click(function(e){
+			var self = $(this);
+			self.fadeOut( 200, function(){
+				self.next().fadeIn( 200, function(){
+					self.next().find('input.list-name-input').focus();
+				});
+			});
+			e.preventDefault();
+		});
+
+		$(".open-list-composer + form .js-close-inlined-form").click(function(e){
+			var self = $(this).parents('form');
+
+			self.fadeOut( 200, function(){
+				self.prev().fadeIn(200);
+			});
+			e.preventDefault();
+		});

@@ -1,0 +1,10 @@
+extends ../layouts/default
+
+block content
+	include ../underscore/board_list
+	.content_container
+
+block js
+	script(src="/js/pageNavigation.js", type="text/javascript")
+	script(type="text/javascript").
+		initHome();

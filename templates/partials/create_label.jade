@@ -1,0 +1,43 @@
+.new_label
+	.pop-over.js-pop-over
+		.header
+			span.header-title Create Label
+		
+		.content-wrapper
+			.content-container
+				.content
+					form.create-label.pure-form.pure-form-stacked(method="POST", action="/label/new")
+						label(for="title") Name
+						input.js-new-board-title(type="text", name="title", autofocus="", required="")
+
+						if board
+							input(type="hidden", name="board", value=board.id)
+
+						label
+							| Select a color
+
+						.palette-colors.new-label-palette
+							span.card-label.palette-color.js-palette-color.card-label-green(color="green")
+							span.card-label.palette-color.js-palette-color.card-label-yellow(color="yellow")
+							span.card-label.palette-color.js-palette-color.card-label-orange(color="orange")
+							span.card-label.palette-color.js-palette-color.card-label-red(color="red")
+							span.card-label.palette-color.js-palette-color.card-label-purple(color="purple")
+							span.card-label.palette-color.js-palette-color.card-label-blue(color="blue")
+							span.card-label.palette-color.js-palette-color.card-label-sky.active(color="sky")
+								i.fa.fa-check
+							span.card-label.palette-color.js-palette-color.card-label-lime(color="lime")
+							span.card-label.palette-color.js-palette-color.card-label-pink(color="pink")
+							span.card-label.palette-color.js-palette-color.card-label-black(color="black")
+
+						input(type="hidden", name="color", value="sky")
+						button.primary(type="submit") Create
+		
+		script(type="text/javascript").
+			$('.new-label-palette .js-palette-color').click(function(e){
+				if( !$(this).hasClass('active') ){
+					$('.new-label-palette .js-palette-color.active').html("").removeClass('active');
+					$(this).addClass('active').html("<i class='fa fa-check'></i>");
+					$(this).parents('.create-label').find('input[name=color]').val( $(this).attr('color') );
+				}
+				e.preventDefault();
+			});

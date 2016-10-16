@@ -1,0 +1,57 @@
+.board-sidebar.sidebar
+	a.sidebar-tongue.js-toggle-sidebar(href="#")
+		i.fa.fa-angle-left
+	.sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
+		.board-widget.board-widget-members
+			h3
+				i.fa.fa-user
+				|  Admins
+			.board-widget-content
+				if board.creator && board.creator.avatar
+					a.member.js-member(title=board.creator.username, href="#")
+						img.avatar.avatar-image(src="/files/avatar/"+board.creator.avatar.filename)
+				
+				each member in board.admins
+					a.member.js-member(title=member.username, href="#")
+						img.avatar.avatar-image(src="/files/avatar/"+member.avatar.filename)
+
+				a.member.add-admin.js-manage-board-admins(href="#")
+					i.fa.fa-plus
+				.clearfix
+
+		hr
+
+		.board-widget.board-widget-members
+			h3
+				i.fa.fa-user
+				|  Members
+			.board-widget-content				
+				each member in board.members
+					a.member.js-member(title=member.username, href="#")
+						img.avatar.avatar-image(src="/files/avatar/"+member.avatar.filename)
+
+				a.member.add-member.js-manage-board-members(href="#")
+					i.fa.fa-plus
+				.clearfix
+
+		hr
+
+		.board-widget.board-widget-labels
+			h3
+				i.fa.fa-tags
+				|  Labels
+			.board-widget-content
+				each label in board.labels
+					a(class="card-label card-label-#{label.color} js-label", href="#", lid=label.id, ltitle=label.title, lcolor=label.color)
+						span.card-label-name
+							= label.title
+
+				a.card-label.add-label.js-add-label(href="#")
+					i.fa.fa-plus
+
+		hr
+
+script(type="text/javascript").
+	$(".js-toggle-sidebar").click(function(e){
+		$(".board-sidebar.sidebar").toggleClass('is-open');
+	});

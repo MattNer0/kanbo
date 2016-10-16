@@ -1,0 +1,31 @@
+include ../mixins/flash-messages
+
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+		title= title || 'Kanbo'
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+
+		link(rel="stylesheet", href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css")
+		link(rel="stylesheet", href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css")
+
+		link(href="/css/font-awesome.min.css", rel="stylesheet")
+		link(href="/css/auth.css", rel="stylesheet")
+
+		block css
+
+		block head
+
+	body
+		#content
+			.wrapper.auth-layout
+				+flash-messages(messages)
+				block content
+
+		//- JAVASCRIPT
+		script(src="/js/jquery/jquery-3.0.0.min.js", type="text/javascript")
+		block js

@@ -1,0 +1,50 @@
+.member_settings
+	.pop-over.js-pop-over
+		div.js-pop-over-settings
+			.header
+				span.header-title Member Settings
+			
+			.content-wrapper
+				.content-container
+					.content
+						ul.pop-over-list
+							li: a.js-edit-username(href="#") Change Display Name
+							li: a.js-edit-avatar(href="#") Change Avatar
+							
+						hr
+						ul.pop-over-list
+							if user.canAccessKeystone
+								li: a(href='/keystone', target="_blank") Open Keystone
+							li: a(href='/keystone/signout') Log Out
+
+		div.js-pop-over-avatar
+			.header
+				a.back-btn.js-back-view(href="#")
+					i.fa.fa-chevron-left
+				
+				span.header-title Member Avatar
+			
+			.content-wrapper
+				.content-container
+					.content
+						form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/user/avatar")
+							input.list-name-input.full-line(type="file", name="avatar")
+							
+							.edit-controls
+								button.pure-button.pure-button-primary(type="submit") Save
+
+		div.js-pop-over-username
+			.header
+				a.back-btn.js-back-view(href="#")
+					i.fa.fa-chevron-left
+				
+				span.header-title Member Display Name
+			
+			.content-wrapper
+				.content-container
+					.content
+						form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/user/username")
+							input.list-name-input.full-line(type="text", name="username", value=user.username)
+							
+							.edit-controls
+								button.pure-button.pure-button-primary(type="submit") Save

@@ -1,0 +1,16 @@
+#flash-messages {
+	margin: 1em auto;
+	max-width: 30em;
+	text-align: center;
+	
+	.alert {
+		background: #1f8dd6;
+		padding: 0.3em 1em;
+		border-radius: 3px;
+		color: #fff;
+	}
+
+	.alert-danger {
+		background: #d61f1f;
+	}
+}

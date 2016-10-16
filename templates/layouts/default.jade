@@ -1,0 +1,132 @@
+include ../mixins/flash-messages
+
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+		title= title || 'Kanbo'
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+
+		link(rel="stylesheet", href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css")
+		link(rel="stylesheet", href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css")
+
+		link(href="/js/jquery-ui/jquery-ui.min.css", rel="stylesheet")
+		link(href="/js/popover/jquery.webui-popover.css", rel="stylesheet")
+		link(href="/js/perfect-scrollbar/perfect-scrollbar.min.css", rel="stylesheet")
+		
+		link(href="/css/font-awesome.min.css", rel="stylesheet")
+		link(href="/css/site.css", rel="stylesheet")
+
+		script(src="/js/jquery/jquery-3.0.0.min.js", type="text/javascript")
+		script(src="/js/popover/jquery.webui-popover.js", type="text/javascript")
+		script(src="/js/showdown.min.js", type="text/javascript")
+
+		block css
+
+		block head
+
+	body
+		#header-quick-access(class=( board ? 'board-color-'+board.color : '' ))
+			ul
+				li
+					a(href='/')
+						span.fa.fa-home
+						| All boards
+				
+				if favedBoards && favedBoards.length > 0
+					//-li.separator -
+					each favedBoard in favedBoards
+						li.starredBoard(boardid=favedBoard._id)
+							a(href="/board/"+favedBoard._id)
+								= favedBoard.title
+			
+			a#header-new-board-icon.js-create-board
+				//-i.fa.fa-plus(title='Create a new board', aria-label='Create a new board')
+			
+			#header-user-bar
+				if user
+					.header-user-bar-name.js-open-header-member-menu
+						if user.avatar && user.avatar.filename
+							.header-user-bar-avatar
+								a.member.js-member(title=( user.username ? user.username : user.email ), href="#")
+									img.avatar.avatar-image(src="/files/avatar/"+user.avatar.filename)
+
+						if user.username
+							= user.username
+						else
+							= user.email
+
+		#header(class=( board ? 'board-color-'+board.color : '' ))
+			#header-main-bar
+				h1
+					if current_page == 'home'
+						| My Boards
+					else if board
+						= board.title
+
+				if board
+					.board-header-btns.left
+						- var star_class = "board-header-btn js-star-board"
+						if _isStarred
+							- star_class += " starred"
+						a(class=star_class, title="Click to star this board.", href="#")
+							if _isStarred
+								i.fa.fa-star
+							else
+								i.fa.fa-star-o
+
+						a.board-header-btn.js-change-visibility(href="#")
+							if board.private
+								i.fa.fa-lock
+								span
+									| Private
+							else
+								i.fa.fa-globe
+								span
+									| Public
+
+				.board-header-btns.right
+					if current_page == 'home'
+						a.board-header-btn.js-open-archived-board(href="#")
+							i.fa.fa-archive
+							span Archives
+					else if _isCreator || _isMember
+						a.board-header-btn.js-open-board-menu
+							i.board-header-btn-icon.fa.fa-navicon
+					
+				a.kanbo-logo(href="/", title="Go back to your boards page", aria-label="Go back to your boards page")
+					Kanbo
+
+		//- BODY
+		#content
+			.wrapper
+				block intro
+				+flash-messages(messages)
+				block content
+
+		if user
+			.menu_container
+				include ../partials/member_settings
+				include ../partials/new_board
+
+				if board && ( _isCreator || _isMember )
+					include ../partials/create_label
+					include ../partials/edit_label
+					include ../partials/board_add_member
+					include ../partials/board_settings
+					include ../partials/list_settings
+
+		//- JAVASCRIPT
+		script(src="/js/underscore.js", type="text/javascript")
+		script(type="text/javascript").
+			_.templateSettings.variable = "rc";
+
+		script(src="/js/moment.js", type="text/javascript")
+		script(src="/js/perfect-scrollbar/perfect-scrollbar.jquery.min.js", type="text/javascript")
+		script(src="/js/jquery-ui/jquery-ui.min.js", type="text/javascript")
+		if user
+			script(src="/js/main.js", type="text/javascript")
+		block js

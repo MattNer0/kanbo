@@ -1,0 +1,121 @@
+.board_settings.pop-over.js-pop-over
+	div.js-pop-over-board-settings
+		.header
+			span.header-title Board Settings
+		
+		.content-wrapper
+			.content-container
+				.content
+					ul.pop-over-list
+						li: a.js-rename-board(href="#") Rename Board
+						li: a.js-edit-color-board(href="#") Change Color
+						li: a.js-edit-background-board(href="#") Change Background
+					hr
+					ul.pop-over-list
+						li: a.js-archived-items(href="#") Archived Items
+
+	div.js-pop-over-board-rename
+		.header
+			a.back-btn.js-back-view(href="#")
+				i.fa.fa-chevron-left
+			
+			span.header-title Rename Board
+		
+		.content-wrapper
+			.content-container
+				.content
+					form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/board/update")
+						input(type="hidden", name="board", value=board.id)
+						input.list-name-input.full-line(type="text", name="title", value=board.title)
+
+						textarea(name="description")= board.description
+						
+						.edit-controls
+							button.primary(type="submit") Save
+
+	div.js-pop-over-board-background
+		.header
+			a.back-btn.js-back-view(href="#")
+				i.fa.fa-chevron-left
+			
+			span.header-title Change Background
+		
+		.content-wrapper
+			.content-container
+				.content
+					form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/board/background")
+						input(type="hidden", name="board", value=board.id)
+						
+						fieldset
+							legend Align
+
+							.inlineRadios
+								label
+									input(type="radio", name="align", value="center", checked)
+									|  Center
+								
+								label
+									input(type="radio", name="align", value="right bottom")
+									|  Bottom Right
+
+						fieldset
+							legend Size
+
+							.inlineRadios
+								label
+									input(type="radio", name="size", value="cover", checked)
+									|  Cover
+								
+								label
+									input(type="radio", name="size", value="100%")
+									|  Full
+
+						fieldset
+							legend Image
+
+							input.full-line(type="file", name="background")
+						
+						.edit-controls
+							button.primary(type="submit") Save
+
+					if board.cover && board.cover.filename
+						form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/board/clear-background")
+							input(type="hidden", name="board", value=board.id)
+							.edit-controls
+								button.primary(type="submit") Clear Background
+
+	div.js-pop-over-board-color
+		.header
+			a.back-btn.js-back-view(href="#")
+				i.fa.fa-chevron-left
+			
+			span.header-title Change Color
+		
+		.content-wrapper
+			.content-container
+				.content
+					form.pure-form.pure-form-stacked(method="POST", enctype="multipart/form-data", action="/board/color")
+						input(type="hidden", name="board", value=board.id)
+						input(type="hidden", name="color", value=board.color)
+
+						.board-backgrounds-list
+							.board-background-select.js-select-background(color="belize")
+								span.background-box.board-color-belize
+							
+							.board-background-select.js-select-background(color="nephritis")
+								span.background-box.board-color-nephritis
+
+							.board-background-select.js-select-background(color="pomegranate")
+								span.background-box.board-color-pomegranate
+
+							.board-background-select.js-select-background(color="pumpkin")
+								span.background-box.board-color-pumpkin
+
+							.board-background-select.js-select-background(color="wisteria")
+								span.background-box.board-color-wisteria
+
+							.board-background-select.js-select-background(color="midnight")
+								span.background-box.board-color-midnight
+						
+						.edit-controls
+							button.primary(type="submit") Save

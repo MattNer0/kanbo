@@ -1,0 +1,161 @@
+#header-quick-access {
+	color: #fff;
+	-webkit-transition: background-color 0.4s;
+	transition: background-color 0.4s;
+	background: #2573a7;
+	height: 28px;
+	font-size: 12px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: box;
+	display: flex;
+
+	.fa {
+		color: inherit;
+	}
+
+	ul {
+		-webkit-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+		margin: 4px 0 0 5px;
+		overflow: hidden;
+
+		li {
+			display: block;
+			float: left;
+			width: auto;
+			color: #d9d9d9;
+			padding: 2px 2px 0;
+		}
+
+		li.starredBoard:before{
+			content: "-";
+			display: block;
+			float: left;
+			width: auto;
+			color: #d9d9d9;
+			padding: 0px 10px;
+			margin-top: -1px;
+		}
+
+		li a:hover {
+			color: #FFF;
+		}
+
+		li:first-child .fa-home {
+			margin-right: 5px;
+		}
+	}
+
+	#header-new-board-icon {
+		-webkit-box-flex: 1;
+		-moz-box-flex: 1;
+		-o-box-flex: 1;
+		-ms-box-flex: 1;
+		box-flex: 1;
+		-webkit-flex-grow: 1;
+		-ms-flex-positive: 1;
+		flex-grow: 1;
+		margin: 6px 5px 0;
+		width: 12px;
+		color: #d4d4d4;
+		cursor: default;
+	}
+
+	#header-user-bar {
+		margin: 2px 0;
+
+		.header-user-bar-name {
+			margin: 4px 8px 0 0;
+			float: left;
+			cursor: pointer;
+		}
+
+		.header-user-bar-avatar {
+			float: left;
+			position: relative;
+			top: -5px;
+			margin-right: 5px;
+
+			.member {
+				display: inline-block;
+				width: 24px;
+				height: 24px;
+				margin: 0;
+				margin-top: 1px;
+			}
+		}
+	}
+}
+
+#header {
+	color: #fff;
+	-webkit-transition: background-color 0.4s;
+	transition: background-color 0.4s;
+	background: #2980b9;
+
+	#header-main-bar {
+		height: 40px;
+		padding: 7px 10px 0;
+	}
+
+	.board-header-btns {
+		display: block;
+		margin-top: 3px;
+		width: auto;
+	}
+
+	.board-header-btns.right {
+		float: right;
+	}
+
+	.board-header-btn {
+		border-radius: 3px;
+		color: #f2f2f2;
+		padding: 0;
+		height: 28px;
+		font-size: 13px;
+		float: left;
+		overflow: hidden;
+		line-height: 28px;
+		margin: 0 2px;
+
+		i.fa {
+			float: left;
+			display: block;
+			line-height: 28px;
+			color: #f2f2f2;
+			margin: 0 10px;
+		}
+
+		i.fa+span {
+			display: inline-block;
+			margin-top: 1px;
+			margin-right: 10px;
+		}
+	}
+
+	.board-header-btn.is-active, .board-header-btn:hover:not(.is-disabled) {
+		background: rgba(0,0,0,0.15);
+	}
+
+	h1 {
+		font-size: 20px;
+		line-height: 1.7em;
+		padding: 0 10px;
+		margin: 0;
+		margin-right: 10px;
+		float: left;
+		border-radius: 3px;
+	}
+
+	.kanbo-logo {
+		display: block;
+		margin: 3px auto 0;
+		width: 97px;
+		opacity: 0.6;
+		-webkit-transition: opacity 0.15s;
+		transition: opacity 0.15s;
+	}
+}

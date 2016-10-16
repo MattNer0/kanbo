@@ -1,0 +1,64 @@
+.list_settings.pop-over.js-pop-over
+	.list_settings
+		.header
+			span.header-title List Settings
+		
+		.content-wrapper
+			.content-container.popup-container-depth-0
+				.content
+					ul.pop-over-list
+						li: a.js-rename-list(href="#") Rename List
+						li: a.js-option-list(href="#") Change List Options
+						li: a.js-add-card(href="#") Add a Card
+					hr
+					ul.pop-over-list
+						li: a.js-archive-list(href="#") Archive List
+
+	.rename-list
+		.header
+			a.back-btn.js-back-view(href="#")
+				i.fa.fa-chevron-left
+
+			span.header-title Rename List
+		
+		.content-wrapper
+			.content-container.popup-container-depth-0
+				.content
+					form.inlined-form.js-inlined-form.pure-form.pure-form-stacked(method="POST", action="/list/rename")
+						input.list-name-input.full-line(type="text", placeholder="", value="", name="title")
+						
+						input(type="hidden", value="", name="list")
+						input(type="hidden", value=board.id, name="board")
+						
+						.edit-controls
+							button.pure-button.pure-button-primary(type="submit") Save
+
+	.options-list
+		.header
+			a.back-btn.js-back-view(href="#")
+				i.fa.fa-chevron-left
+
+			span.header-title List Options
+		
+		.content-wrapper
+			.content-container.popup-container-depth-0
+				.content
+					form.inlined-form.js-inlined-form.pure-form.pure-form-stacked(method="POST", action="/list/options")
+						
+						fieldset
+							legend Size
+							
+							.inlineRadios
+								label
+									input(type="radio", value="default", name="size", checked)
+									| Default
+
+								label
+									input(type="radio", value="wide", name="size")
+									| Wide
+												
+						input(type="hidden", value="", name="list")
+						input(type="hidden", value=board.id, name="board")
+						
+						.edit-controls
+							button.pure-button.pure-button-primary(type="submit") Save

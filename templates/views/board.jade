@@ -1,0 +1,40 @@
+extends ../layouts/default
+include ../partials/board_mixins
+
+block css
+	if board.cover && board.cover.filename
+		style.
+			body{
+				background-image: url( '/files/boards/#{board.cover.filename}' );
+				background-size: #{board.coverSize};
+				background-position: #{board.coverAlign};
+			}
+			#header, #header-quick-access{
+				opacity: 0.9;
+			}
+
+block content
+	include ../underscore/list_list
+	include ../underscore/member_list
+
+	- var permClass = ''
+	unless _isCreator || _isMember
+		- var permClass = ' no-board-admin'
+	
+	div(class='board-wrapper board-color-'+board.color + permClass)
+		include ../partials/sidebar
+
+		.board-canvas(boardid=board.id)
+			.lists.js-lists
+
+				.list.js-list.list-composer.js-list-composer
+					.list-header
+						+new_list(board)
+
+block js
+	script(src="/js/pageNavigation.js", type="text/javascript")
+	script(src="/js/board.js", type="text/javascript")
+	script(src="/js/card.js", type="text/javascript")
+	
+	script(type="text/javascript").
+		initBoard();

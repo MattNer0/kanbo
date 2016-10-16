@@ -1,0 +1,18 @@
+extends ../layouts/auth
+
+block content
+	.at-form
+		.at-title
+			h3 Sign In
+
+		.at-pwd-form
+			form.pure-form.pure-form-stacked(method="POST")
+				label(for="username") Username
+				input(type="text", name="username")
+
+				label(for="password") Password
+				input(type="password", name="password")
+
+				input(type="hidden", name=csrfTokenKey, value=csrfTokenValue)
+
+				button.pure-button.pure-button-primary(type="submit") Sign in

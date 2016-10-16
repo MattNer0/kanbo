@@ -1,0 +1,13 @@
+script(type="text/template", class="member_list").
+	<ul class="pop-over-list">
+		<% _.each( rc.memberslist, function( member ){ %>
+			<li class="item js-member-item">
+				<div class="name js-select-member" title="<%- member.username %>" memberid="<%- member._id %>">
+					<a class="member js-member" href="#">
+						<img class="avatar avatar-image" src="/files/avatar/<%- member.avatar.filename %>" />
+					</a>
+					<span class="full-name"><%- member.username %></span>
+				</div>
+			</li>
+		<% }); %>
+	</ul>

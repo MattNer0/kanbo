@@ -1,0 +1,79 @@
+include ../partials/card_details
+
+section.card-details.js-card-details.ps-container(cardid=card.id)
+	.card-details-canvas
+		.card-details-header
+			
+			a.fa.fa-times.close-card-details.js-close-card-details(href="#")
+			a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(href="#")
+
+			h2.card-details-title.js-card-title
+				= card.title
+
+		.card-details-items
+			.card-details-item.card-details-item-members
+				h3.card-details-item-title Members
+
+				a.member.add-member.card-details-item-add-button.js-add-members(href="#")
+					i.fa.fa-plus
+
+			.card-details-item.card-details-item-labels
+				h3.card-details-item-title Labels
+
+				each label in card.labels
+					span.card-label-item(labelid=label.id)
+						span(class="card-label card-label-"+label.color, title=label.title)
+							= label.title
+
+				a.card-label.add-label.js-add-labels(href="#")
+					i.fa.fa-plus
+
+		.card-details-description
+			h3.card-details-item-title Description
+			span -
+			a.js-open-inlined-form edit
+			a.js-close-inlined-form close
+			.card-description-container
+
+			.card-description-textarea
+				textarea(name="description")= card.content
+
+				.edit-controls
+					button.primary(type="submit") Save
+
+			if card.content
+				script(type="text/javascript").
+					var converter 	= new showdown.Converter();
+					var converted_html = converter.makeHtml( $(".card-details[cardid='#{card.id}'] .card-description-textarea textarea").val() );
+					$(".card-details[cardid='#{card.id}'] .card-description-container").html( converted_html );
+		
+		.attachments-galery
+
+		hr
+
+		.card-details-headtitle
+			h2
+				i.fa.fa-comments-o
+				|  Add Comment
+
+		.new-comment.js-new-comment
+			a.member.js-member(title=user.username, href="#")
+				img.avatar.avatar-image(src="/files/avatar/"+user.avatar.filename)
+
+			form.js-new-comment-form
+				input(type="hidden", name="board", value=card.board)
+				input(type="hidden", name="card", value=card.id)
+				textarea.editor.js-new-comment-input(placeholder="Write a comment", name="comment", data-autosize-on="true", style="overflow: hidden; word-wrap: break-word; height: 67px;")
+				
+				.add-controls
+					button.primary.confirm.clear.js-add-comment(type="submit") Comment
+
+		.card-details-headtitle
+			h2
+				i.fa.fa-heartbeat
+				|  Activity
+
+		.activities.js-sidebar-activities
+
+	+card_settings(card)
+	+card_labels_settings(card)

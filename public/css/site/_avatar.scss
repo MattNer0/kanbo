@@ -1,0 +1,76 @@
+.member {
+	border-radius: 3px;
+	display: block;
+	position: relative;
+	float: left;
+	height: 30px;
+	width: 30px;
+	margin: 0 4px 4px 0;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index: 1;
+	text-decoration: none;
+	border-radius: 50%;
+
+	.avatar.avatar-image {
+		height: 100%;
+		width: 100%;
+	}
+	.avatar {
+		overflow: hidden;
+		border-radius: 50%;
+	}
+}
+
+.member.add-member, .member.add-admin {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: box;
+	display: flex;
+	-webkit-box-align: center;
+	-o-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-o-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	box-shadow: 0 0 0 2px #bfbfbf inset;
+
+	i.fa-plus{
+		color: #a6a6a6;
+	}
+}
+
+.card-label {
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	font-weight: 700;
+	font-size: 13px;
+	margin-right: 4px;
+	margin-bottom: 5px;
+	padding: 3px 8px;
+	max-width: 100%;
+	min-width: 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 18px;
+	vertical-align: bottom;
+}
+
+.card-label.add-label i.fa-plus {
+	margin-top: 3px;
+	color: #a6a6a6;
+}
+
+.card-label.add-label {
+	box-shadow: 0 0 0 2px #bfbfbf inset;
+}

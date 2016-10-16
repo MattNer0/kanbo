@@ -1,0 +1,39 @@
+.new_board
+	.pop-over.js-pop-over
+		.header
+			span.header-title Create Board
+		
+		.content-wrapper
+			.content-container.popup-container-depth-0
+				.content
+					form.new_board_form.pure-form.pure-form-stacked(method="POST", action="/board/new")
+						label(for="title") Title
+						input.js-new-board-title(type="text", name="title", autofocus="", required="")
+
+						input(type="hidden", name="private", value="1")
+						ul.pop-over-list
+							li: a.js-select-visibility.active(href="#", pr="1")
+								i.fa.fa-lock.colorful
+								|  Private 
+								i.fa.fa-check
+								span.sub-name
+									| This board is private. Only people added to the board can view and edit it.
+
+							li: a.js-select-visibility(href="#", pr="0")
+								i.fa.fa-globe.colorful
+								|  Public 
+								i.fa.fa-check
+								span.sub-name
+									| This board is public. It's visible to anyone with the link.
+
+						button.pure-button.pure-button-primary(type="submit") Create
+		
+		script(type="text/javascript").
+			$('.js-select-visibility').click(function(e){
+				if( !$(this).hasClass('active') ){
+					$('.js-select-visibility.active').removeClass('active');
+					$(this).addClass('active');
+					$(this).parents('.new_board_form').find('input[name=private]').val( $(this).attr('pr') );
+				}
+				e.preventDefault();
+			})

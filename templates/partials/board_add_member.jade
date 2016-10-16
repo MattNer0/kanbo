@@ -1,0 +1,35 @@
+.board_add_member.pop-over.js-pop-over
+	.header
+		span.header-title Members
+	
+	.content-wrapper
+		.content-container
+			.content
+				form.add-member-form.pure-form.pure-form-stacked(method="POST", action="/member/new")
+					label(for="title") Username
+					input(type="text", name="username", autofocus="", required="")
+
+					if board
+						input(type="hidden", name="board", value=board.id)
+
+					.member-match
+
+					button.pure-button.pure-button-primary(type="submit") Add
+
+.board_add_admin.pop-over.js-pop-over
+	.header
+		span.header-title Admins
+	
+	.content-wrapper
+		.content-container
+			.content
+				form.add-admin-form.pure-form.pure-form-stacked(method="POST", action="/admin/new")
+					label(for="title") Username
+					input(type="text", name="username", autofocus="", required="")
+
+					if board
+						input(type="hidden", name="board", value=board.id)
+
+					.member-match
+
+					button.pure-button.pure-button-primary(type="submit") Add
